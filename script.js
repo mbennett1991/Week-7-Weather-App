@@ -45,6 +45,22 @@ function getForecast(userInput) {
         method: "GET"
     }).then(function(response){
         console.log(response);
+
+        for (i = 0; i < 5; i++){
+            var date = moment().format("D/M/YYYY");
+            //var fIcon = 
+            var fTempK = response.list[7].main.temp;
+            var fTempF = Math.floor((fTempK - 273.15) * 1.80 + 32);
+            var fTempC = Math.floor(fTempK - 273.15);
+            var fHum = response.list[7].main.humidity;
+
+            $("#fD" + i)
+            $("#fI" + i)
+            $("#fTemp" + i).text(fTempF + "° F");
+            $("#fHum" + i).text(fHum + "%");
+        }
+
+        
     })
 }
 

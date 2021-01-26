@@ -1,17 +1,18 @@
+.container{
+    margin: 0px;
+}
 .jumbotron {
     text-align: center;
     background-color: pink;
     color: black;
     border-radius: 0;
     border-bottom: 10px solid black;
-  }
+}
 #searchSection{
     background-color: rgb(233, 233, 233);
     padding: 10px;
+    margin: 0;
 }
-ul{
-
-}
-li{
-    list-style: none;
+.forecasts{
+    margin: 5px;
 }
