@@ -3,7 +3,6 @@ var APIKey = "7416649906867425f9c55e97c73f40c7";
 
 $("#searchBtn").on("click", function () {
     var userInput = $("#searchInput").val();
-    //var userCity = $(this).attr("userInput");
     searchWeather(userInput);
     saveToLocalStorage();
 });
@@ -16,18 +15,22 @@ function searchWeather(userInput){
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        var currentDay = moment()
+        var currentDay = moment().format("D/M/YYYY")
         console.log(currentDay)
             console.log(response);
 
-            $("#city").text(userInput);
             var K = response.main.temp;
             var f = Math.floor((K - 273.15) * 1.80 + 32);
             var c = Math.floor(K - 273.15);
+            var weatherIcon = response.weather[0].icon;
+            var iconImage = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
+            console.log(iconImage);
+            $("#city").text(userInput + " " + currentDay + " ");
+            $("#weatherPic").attr("src", iconImage);
             $("#temperatureF").text("Temperature: " + f + "° F");
             $("#temperatureC").text("Temperature: " + c + "° C");
-            $("#humidity").text("Humidity: " + response.main.humidity);
-            $("#windSpeed").text("Wind Speed: " + response.wind.speed);
+            $("#humidity").text("Humidity: " + response.main.humidity + "%");
+            $("#windSpeed").text("Wind Speed: " + response.wind.speed + "MPH");
 
             getForecast(userInput);
             getUV(response.coord.lat, response.coord.lon);
@@ -42,7 +45,6 @@ function getForecast(userInput) {
         method: "GET"
     }).then(function(response){
         console.log(response);
-        
     })
 }
 
@@ -61,6 +63,10 @@ function getUV(lat, lon) {
 
 function saveToLocalStorage(){
 
+    var searchCity = $("#searchInput").val();
+    localStorage.setItem("userSearch", searchCity)
+    
+    renderSearchSection();
 }
 
 function renderSearchSection(){
