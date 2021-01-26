@@ -5,7 +5,7 @@ $("#searchBtn").on("click", function () {
     var userInput = $("#searchInput").val();
     $("#weatherDisplay").empty();
     searchWeather(userInput);
-    saveToLocalStorage();
+    saveToLocalStorage(userInput);
 });
 
 
@@ -59,17 +59,6 @@ function getForecast(userInput) {
                 forecastDiv.append(pDate, pIcon, pTemp, pHum);
                 $("#weatherDisplay").append(forecastDiv);
             }
-        //     var date = moment().format("D/M/YYYY");
-        //     //var fIcon = 
-        //     var fTempK = response.list[7].main.temp;
-        //     var fTempF = Math.floor((fTempK - 273.15) * 1.80 + 32);
-        //     var fTempC = Math.floor(fTempK - 273.15);
-        //     var fHum = response.list[7].main.humidity;
-
-        //     $("#fD" + i)
-        //     $("#fI" + i)
-        //     $("#fTemp" + i).text(fTempF + "° F");
-        //     $("#fHum" + i).text(fHum + "%");
         }
 
         
@@ -89,16 +78,21 @@ function getUV(lat, lon) {
     })
 }
 
-function saveToLocalStorage(){
+function saveToLocalStorage(userInput){
+    var userSearch = JSON.parse(window.localStorage.getItem("userSearch")) ||  [];
+    userSearch.push(userInput);
 
-    var searchCity = $("#searchInput").val();
-    localStorage.setItem("userSearch", searchCity)
+    localStorage.setItem("userSearch", JSON.stringify(userSearch));
     
     renderSearchSection();
 }
 
 function renderSearchSection(){
-
+    var userSearch = JSON.parse(window.localStorage.getItem("userSearch")) ||  [];
+    for (i =0; i < userSearch.length; i++){
+        //create buttons for each
+        console.log(userSearch[i]);
+    }
 }
 
 renderSearchSection();
