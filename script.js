@@ -3,6 +3,7 @@ var APIKey = "7416649906867425f9c55e97c73f40c7";
 
 $("#searchBtn").on("click", function () {
     var userInput = $("#searchInput").val();
+    $("#weatherDisplay").empty();
     searchWeather(userInput);
     saveToLocalStorage();
 });
@@ -46,18 +47,29 @@ function getForecast(userInput) {
     }).then(function(response){
         console.log(response);
 
-        for (i = 0; i < 5; i++){
-            var date = moment().format("D/M/YYYY");
-            //var fIcon = 
-            var fTempK = response.list[7].main.temp;
-            var fTempF = Math.floor((fTempK - 273.15) * 1.80 + 32);
-            var fTempC = Math.floor(fTempK - 273.15);
-            var fHum = response.list[7].main.humidity;
+        for (i = 0; i < response.list.length; i++){
 
-            $("#fD" + i)
-            $("#fI" + i)
-            $("#fTemp" + i).text(fTempF + "° F");
-            $("#fHum" + i).text(fHum + "%");
+            if (response.list[i].dt_txt.indexOf("12:00:00") !== -1){
+                var forecastDiv = $("<div>").addClass("forecasts col-2 bg-secondary rounded");
+                var pDate = $("<p>").text(response.list[i].dt_txt);
+                var pIcon = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png") 
+                var pTemp = $("<p>").text(response.list[i].main.temp);
+                var pHum = $("<p>").text(response.list[i].main.humidity);
+                
+                forecastDiv.append(pDate, pIcon, pTemp, pHum);
+                $("#weatherDisplay").append(forecastDiv);
+            }
+        //     var date = moment().format("D/M/YYYY");
+        //     //var fIcon = 
+        //     var fTempK = response.list[7].main.temp;
+        //     var fTempF = Math.floor((fTempK - 273.15) * 1.80 + 32);
+        //     var fTempC = Math.floor(fTempK - 273.15);
+        //     var fHum = response.list[7].main.humidity;
+
+        //     $("#fD" + i)
+        //     $("#fI" + i)
+        //     $("#fTemp" + i).text(fTempF + "° F");
+        //     $("#fHum" + i).text(fHum + "%");
         }
 
         
