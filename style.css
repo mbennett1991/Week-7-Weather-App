@@ -1,7 +1,4 @@
-.container{
-    margin: 0px;
-}
-.jumbotron {
+.jumbotron{
     text-align: center;
     background-color: pink;
     color: black;
@@ -14,5 +11,11 @@
     margin: 0;
 }
 .forecasts{
-    margin: 5px;
+    margin: 7px;
+}
+ul{
+
+}
+li{
+    list-style: none;
 }

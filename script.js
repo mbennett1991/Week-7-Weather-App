@@ -6,6 +6,7 @@ $("#searchBtn").on("click", function () {
     $("#weatherDisplay").empty();
     searchWeather(userInput);
     saveToLocalStorage(userInput);
+    renderSearchSection();
 });
 
 
@@ -60,8 +61,6 @@ function getForecast(userInput) {
                 $("#weatherDisplay").append(forecastDiv);
             }
         }
-
-        
     })
 }
 
@@ -90,9 +89,13 @@ function saveToLocalStorage(userInput){
 function renderSearchSection(){
     var userSearch = JSON.parse(window.localStorage.getItem("userSearch")) ||  [];
     for (i =0; i < userSearch.length; i++){
-        //create buttons for each
+        var searchList = $("<li>");
+        var searchButton = $("<button>");
+        searchButton.text(userSearch[i]);
+        searchList.append(searchButton);
+        $("#resultsList").append(searchList);
+
         console.log(userSearch[i]);
+        //add function call to search for last thing in array userSearch[i]
     }
 }
-
-renderSearchSection();
